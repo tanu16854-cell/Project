@@ -1,0 +1,347 @@
+.form-container {
+  width: 320px;
+  margin: 5rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form-container label {
+  display: block;
+  margin-top: 1rem;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.4rem;
+  box-sizing: border-box;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 1.5rem;
+  background: #0055a5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-container .message {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.form-container .message a {
+  color: #0055a5;
+  text-decoration: none;
+}
+
+/* General Styling */
+header {
+  background-color: #0055a5;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+#logoutBtn {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#logoutBtn:hover {
+  background-color: #d13333;
+}
+
+main {
+  padding: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.exam-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.exam-list li {
+  background-color: #f4f4f4;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exam-list span {
+  font-size: 1.2rem;
+}
+
+.start-btn {
+  background-color: #0055a5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.start-btn:hover {
+  background-color: #00438f;
+}
+
+.exam-container {
+  width: 80%;
+  margin: 2rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  background-color: #0055a5;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+}
+
+#timer {
+  font-weight: bold;
+}
+
+#question-container {
+  margin-top: 2rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 1rem 0;
+}
+
+input[type="radio"] {
+  margin-right: 1rem;
+}
+
+.navigation-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #0055a5;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #00438f;
+}
+
+.result-container {
+  width: 80%;
+  margin: 2rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  background-color: #0055a5;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+}
+
+h2 {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.result-info {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.result-info p {
+  font-size: 1.2rem;
+}
+
+.navigation-buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #0055a5;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #00438f;
+}
+
+/* Successfull Registeration Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  text-align: center;
+  margin-top: 50px;
+}
+
+h3 {
+  color: green;
+  margin-bottom: 30px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* General layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 20px;
+}
+
+/* Quiz form container */
+form {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Each question block */
+.question {
+  margin-bottom: 25px;
+}
+
+.question p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Radio buttons */
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+/* Submit button */
+button[type="submit"] {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 25px;
+  font-size: 16px;
+  background-color: #004080;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0059b3;
+}
+
+/* Timer */
+.timer {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #cc0000;
+}
+
+/* Result page styling */
+#resultText {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 40px;
+  color: #006600;
+}
+
+/* exam-page styling */
+.question-block {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* result-page styling */
+.question-block {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

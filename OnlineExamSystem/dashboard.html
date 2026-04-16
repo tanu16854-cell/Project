@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <h2>Your Available Exams</h2>
+    <ul class="exam-list">
+      <li>
+        <span>Java Fundamentals Quiz</span>
+        <a href="exam.html?quiz=java"><button class="start-btn">Start</button></a>
+      </li>
+      <li>
+        <span>Web Development MCQ</span>
+        <a href="exam.html?quiz=web"><button class="start-btn">Start</button></a>
+      </li>
+    </ul>
+  </main>
+
+  <script>
+    // JavaScript for logout button
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      window.location.href = "login.html"; // redirect to registration page
+    });
+  </script>
+</body>
+
+</html>
