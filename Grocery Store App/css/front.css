@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #8e8c8c;
+    display: flex;
+  }
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1em;
+  }
+  nav a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .hero {
+    background: #f6f4f3;
+    color: white;
+    text-align: center;
+    padding: 5em 2em;
+  }
+  
+  .hero .btn {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    background: #ff6600;
+    color: white;
+    text-decoration: none;
+    margin-top: 1em;
+    border-radius: 5px;
+  }
+  .container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    background-color:white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 300px;
+    margin: 20px auto;
+    transition-duration: .4s;
+    
+}
+.product-card :hover{
+    transform: scale(1.1); 
+
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    transition-duration: .4s;
+}
+.product-card img:hover{
+    transform: scale(1.1);
+    border-radius: 20px;
+}
+.price {
+    font-weight: bold;
+    color: #815904;
+    transition-duration: .4s;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition-duration: .4s;
+}
+
+button:hover{
+    transform: scale(0.8);
+    border-radius: 20px;
+}
+#searchInput {
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-inline-start: auto;
+}
+  .product {
+    background: white;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+  }
+
+  footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+  }
+
+   body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #adabab;
+    vertical-align: text-bottom;}

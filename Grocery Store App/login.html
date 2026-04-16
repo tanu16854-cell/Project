@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grocery Store Login</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" placeholder="Username" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Password" required />
+      <button onclick="document.location='login.html'">Login</button>
+      <p id="errorMsg"></p>
+    </form>
+     <h4>or</h4>
+     <button type="submit" onclick="document.location='register.html'">Register</button>
+    
+
+  <script src="login.js"></script>
+</body>
+</html>
