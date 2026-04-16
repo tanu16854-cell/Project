@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Two Birthday Wishes — For Your Bestie</title>
+  <style>
+    :root{
+      --accent:#ff4d6d;
+      --accent-2:#ffd24d;
+      --bg:#0f1724;
+      --card-bg: rgba(255,255,255,0.05);
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.04);
+      --mono: #e6eef8;
+      --radius: 18px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071020 0%, #071832 40%, #052032 100%);color:var(--mono)}
+    .app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:36px}
+    .container{width:100%;max-width:1100px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:22px;box-shadow:0 8px 40px rgba(2,6,23,0.6);position:relative;overflow:hidden}
+
+    .top{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .nav{display:flex;gap:8px}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:10px 14px;border-radius:12px;color:var(--mono);cursor:pointer;backdrop-filter: blur(6px);}
+    .btn.active{box-shadow:0 6px 22px rgba(255,77,109,0.12);border-color:rgba(255,77,109,0.3);}
+    .controls{display:flex;gap:10px;align-items:center}
+    .small{font-size:13px;opacity:0.9}
+
+    .pages{display:grid;grid-template-columns:1fr;gap:18px}
+    .page{display:none;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .page.show{display:block}
+
+    .card{display:flex;gap:18px;align-items:center}
+    .left{flex:0 0 320px}
+    .photo{width:320px;height:320px;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#071024,#0c1a2a);border:1px solid rgba(255,255,255,0.04)}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .photo .placeholder{color:rgba(255,255,255,0.18);text-align:center;padding:12px}
+
+    .right{flex:1}
+    h1{margin:0 0 8px 0;font-size:32px;letter-spacing:0.2px}
+    p.lead{margin:6px 0 16px;color:rgba(230,238,248,0.82)}
+
+    .message{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);min-height:120px}
+    .controls-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    input[type=file]{display:none}
+    label.file-btn{cursor:pointer;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03)}
+
+   
+    .glow{box-shadow:0 8px 32px rgba(255,77,109,0.12), inset 0 1px 0 rgba(255,255,255,0.02);border-radius:12px;padding:14px}
+    .typewriter{font-family:monospace;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:22px}
+
+    .sparkles{position:absolute;left:-10%;top:-10%;width:140%;height:140%;pointer-events:none}
+    .sparkle{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.9) 20%, rgba(255,77,109,0.2) 70%);opacity:0;transform:scale(0)}
+
+  
+    .balloons{position:absolute;bottom:-80px;left:20px;pointer-events:none}
+    .balloon{width:44px;height:60px;border-radius:50% 50% 45% 45%;background:linear-gradient(180deg,#ff6b9a,#ffb86b);display:inline-block;margin-right:12px;transform-origin:center bottom;animation:float 4s ease-in-out infinite}
+    .balloon:nth-child(2){animation-delay:0.6s;width:36px;height:48px;background:linear-gradient(180deg,#7be7ff,#6b8bff)}
+    .balloon:nth-child(3){animation-delay:1.2s;width:50px;height:72px;background:linear-gradient(180deg,#b27bff,#ff7bd2)}
+    @keyframes float{0%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-28px) rotate(6deg)}100%{transform:translateY(0) rotate(-4deg)}}
+
+    .party-stage{position:relative;min-height:320px;border-radius:12px;overflow:hidden}
+    #confetti-canvas{position:absolute;inset:0;pointer-events:none}
+    .big-wish{font-size:38px;margin:10px 0}
+    .bouncy{display:inline-block;animation:bounce 1.4s infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  
+    @media (max-width:900px){.card{flex-direction:column}.left{flex:0 0 auto;width:100%}.photo{width:100%;height:260px}.pages{padding-bottom:16px}}
+
+    
+    .muted{opacity:0.9;font-size:13px}
+    .link-like{background:none;border:none;color:var(--accent);cursor:pointer;padding:6px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="container" role="main">
+      <div class="top">
+        <div class="nav" role="tablist" aria-label="Birthday pages">
+          <button id="page1Btn" class="btn active" role="tab" aria-selected="true">✨ Glowing Wish</button>
+          <button id="page2Btn" class="btn" role="tab">🎉 Confetti Party</button>
+        </div>
+
+      </div>
+
+      <div class="pages">
+        <section id="page1" class="page show" aria-labelledby="page1Btn">
+          <div class="card glow">
+            <div class="left">
+              <div class="photo" id="photoCard1">
+                <div class="placeholder">
+                  <strong>Upload a photo</strong><br>
+                  (Click the photo icon below)
+                </div>
+              </div>
+              <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+                <label class="file-btn" for="imgInput1">Choose Photo</label>
+                <input id="imgInput1" type="file" accept="image/*">
+
+                <label class="file-btn" for="musicInput1">Choose Music</label>
+                <input id="musicInput1" type="file" accept="audio/*">
+
+                <button class="btn" id="play1">Play</button>
+              </div>
+            </div>
+
+            <div class="right">
+              <h1>Happy Birthday, Riya G❤️❤️</h1>
+              <p class="lead">A warm, glowing wish made just for you. Please emotions ke sath pdhna.. bhut tym lga ke likha hai...😂😂😂</p>
+
+              <div class="message" id="message1">
+                <div class="typewriter" id="type1">here' here are to the days of extreme laughter and endless talks of those nights when we didn't care about time and tide..but just love, care and affection ..yrr 9 class se sath hai i hope lyftyme sth rhe agr tu jyda gussa na kre ... sch yrr tu mere lyy sb kuh dst ki bhasa vse to tera  bhai hai hehe.....yrr tu special ...mhadav tujhe unnati mile lyf m or tu bht age jaye jivan m jisse mera kharcha utha ske ...or tu tnsn na liya kr sb shi hoga....I LOVE YOU BABU....thanku for always being this caring and heartful...or jitni sundr tum hona usse bhe zyada sundr tumharii soul hai ,pure and nostalgic...many many happy returns of the day Riya, may this year brings lots of success and joy ...lots of love from my side..  
+
+        
+                </div>
+              </div>
+
+              <div class="controls-row">
+                <button class="btn" id="editMsg1">Edit Message</button>
+                <button class="btn" id="download1">Download Card (PNG)</button>
+                <button class="btn" id="toggleSpark">Toggle Sparkles</button>
+              </div>
+            </div>
+          </div>
+          <div class="balloons" aria-hidden="true">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+          </div>
+          <div class="sparkles" id="sparkles1" aria-hidden="true"></div>
+        </section>
+
+
+        <section id="page2" class="page" aria-labelledby="page2Btn">
+          <div class="party-stage" id="partyStage">
+            <canvas id="confetti-canvas"></canvas>
+            <div style="position:relative;padding:18px;z-index:2;display:flex;gap:18px;align-items:center">
+              <div class="left">
+                <div class="photo" id="photoCard2">
+                  <div class="placeholder">Your best friend's photo</div>
+                </div>
+                <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+                  <label class="file-btn" for="imgInput2">Choose Photo</label>
+                  <input id="imgInput2" type="file" accept="image/*">
+
+                  <label class="file-btn" for="musicInput2">Choose Music</label>
+                  <input id="musicInput2" type="file" accept="audio/*">
+
+                  <button class="btn" id="play2">Play</button>
+                </div>
+              </div>
+              <div class="right">
+                <div class="big-wish"><span class="bouncy">🎈</span> Happy Birthday, <strong>Riya❤️</strong>!</div>
+              
+                <div style="margin-top:10px;display:flex;gap:8px">
+                  <button class="btn" id="startConfetti">Start Confetti</button>
+                  <button class="btn" id="stopConfetti">Stop Confetti</button>
+                  <button class="btn" id="download2">Download Snapshot</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+      <audio id="audio1" loop preload="none"></audio>
+      <audio id="audio2" loop preload="none"></audio>
+
+    </div>
+  </div>
+
+  <script>
+    
+    const p1Btn = document.getElementById('page1Btn');
+    const p2Btn = document.getElementById('page2Btn');
+    const p1 = document.getElementById('page1');
+    const p2 = document.getElementById('page2');
+    p1Btn.addEventListener('click', ()=>{p1.classList.add('show');p2.classList.remove('show');p1Btn.classList.add('active');p2Btn.classList.remove('active');p1Btn.setAttribute('aria-selected','true');p2Btn.setAttribute('aria-selected','false')});
+    p2Btn.addEventListener('click', ()=>{p2.classList.add('show');p1.classList.remove('show');p2Btn.classList.add('active');p1Btn.classList.remove('active');p1Btn.setAttribute('aria-selected','false');p2Btn.setAttribute('aria-selected','true')});
+
+    
+    function setupImageInput(inputId, targetId){
+      const input = document.getElementById(inputId);
+      const target = document.getElementById(targetId);
+      input.addEventListener('change', e=>{
+        const file = e.target.files[0];
+        if(!file) return;
+        const url = URL.createObjectURL(file);
+        target.innerHTML = '';
+        const img = document.createElement('img'); img.src = url; img.alt = 'Bestie photo';
+        target.appendChild(img);
+      });
+    }
+    setupImageInput('imgInput1','photoCard1');
+    setupImageInput('imgInput2','photoCard2');
+
+    
+    function setupMusicInput(inputId,audioId,playBtnId){
+      const input = document.getElementById(inputId);
+      const audio = document.getElementById(audioId);
+      const playBtn = document.getElementById(playBtnId);
+      input.addEventListener('change', e=>{
+        const file = e.target.files[0];
+        if(!file) return;
+        const url = URL.createObjectURL(file);
+        audio.src = url;
+      });
+      playBtn.addEventListener('click', ()=>{
+        if(!audio.src){
+          
+          playSynthMelody();
+          return;
+        }
+        audio.paused ? audio.play() : audio.pause();
+        playBtn.textContent = audio.paused ? 'Play' : 'Pause';
+      });
+    }
+    setupMusicInput('musicInput1','audio1','play1');
+    setupMusicInput('musicInput2','audio2','play2');
+
+    
+    document.getElementById('editMsg1').addEventListener('click', ()=>{
+      const typeEl = document.getElementById('type1');
+      const newMsg = prompt('Edit the birthday message:', typeEl.textContent);
+      if(newMsg!=null) typeEl.textContent = newMsg;
+    });
+
+    
+    const sparkWrap = document.getElementById('sparkles1');
+    let sparklesOn = true;
+    function createSparkles(){
+      sparkWrap.innerHTML='';
+      for(let i=0;i<28;i++){
+        const s = document.createElement('div'); s.className='sparkle';
+        s.style.left = (Math.random()*100)+'%';
+        s.style.top = (Math.random()*100)+'%';
+        s.style.opacity = 0;
+        sparkWrap.appendChild(s);
+       
+        (function(el,delay){
+          setTimeout(()=>{
+            el.style.transition='transform 900ms cubic-bezier(.2,.9,.3,1),opacity 900ms';
+            el.style.transform='scale(1.6)';
+            el.style.opacity=1;
+            setTimeout(()=>{el.style.transform='scale(0)';el.style.opacity=0},900);
+           
+            setInterval(()=>{el.style.transform='scale(1.6)';el.style.opacity=1;setTimeout(()=>{el.style.transform='scale(0)';el.style.opacity=0},900)},2300+Math.random()*1200)
+          }, delay)
+        })(s,Math.random()*1200);
+      }
+    }
+    createSparkles();
+    document.getElementById('toggleSpark').addEventListener('click', ()=>{sparklesOn=!sparklesOn;sparkWrap.style.display = sparklesOn?'block':'none';});
+
+    
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    let confettiPieces = [];
+    function resizeCanvas(){canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight}
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+    function random(min,max){return Math.random()*(max-min)+min}
+    function makeConfetti(){
+      confettiPieces = [];
+      const count = 130;
+      for(let i=0;i<count;i++){
+        confettiPieces.push({
+          x: random(0,canvas.width),
+          y: random(-canvas.height,0),
+          w: random(6,14),
+          h: random(8,18),
+          vx: random(-0.6,0.6),
+          vy: random(1,3),
+          angle: random(0,Math.PI*2),
+          spin: random(-0.08,0.08),
+          color: `hsl(${Math.floor(random(0,360))} ${random(70,95)}% ${random(50,70)}%)`
+        });
+      }
+    }
+    makeConfetti();
+    let confettiRunning = false;
+    function drawConfetti(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      confettiPieces.forEach(p=>{
+        p.x += p.vx; p.y += p.vy; p.vy += 0.02; p.angle += p.spin;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.angle);
+        ctx.fillStyle = p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+        ctx.restore();
+      });
+      confettiPieces = confettiPieces.filter(p=>p.y < canvas.height + 40);
+      if(confettiPieces.length===0){confettiRunning=false;}
+      if(confettiRunning) requestAnimationFrame(drawConfetti);
+    }
+    document.getElementById('startConfetti').addEventListener('click', ()=>{makeConfetti(); confettiRunning=true; drawConfetti();});
+    document.getElementById('stopConfetti').addEventListener('click', ()=>{confettiPieces = []; confettiRunning=false; ctx.clearRect(0,0,canvas.width,canvas.height)});
+
+    
+    async function downloadElementSnapshot(element, filename='card.png'){
+      
+      const rect = element.getBoundingClientRect();
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${rect.width}' height='${rect.height}'><foreignObject width='100%' height='100%'>${new XMLSerializer().serializeToString(element)}</foreignObject></svg>`;
+      const svgBlob = new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image(); img.src = url;
+      await new Promise(r=>img.onload=r);
+      const canvas2 = document.createElement('canvas'); canvas2.width = rect.width; canvas2.height = rect.height; const ctx2 = canvas2.getContext('2d');
+      ctx2.fillStyle = getComputedStyle(document.body).backgroundColor; ctx2.fillRect(0,0,canvas2.width,canvas2.height);
+      ctx2.drawImage(img,0,0);
+      URL.revokeObjectURL(url);
+      const a = document.createElement('a'); a.href = canvas2.toDataURL('image/png'); a.download = filename; a.click();
+    }
+    document.getElementById('download1').addEventListener('click', ()=>{const el = document.querySelector('#page1 .card'); downloadElementSnapshot(el,'birthday-card-glow.png')});
+    document.getElementById('download2').addEventListener('click', ()=>{const el = document.querySelector('#page2 .party-stage'); downloadElementSnapshot(el,'birthday-card-party.png')});
+
+    function playSynthMelody(){
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if(!AudioCtx) return alert('Your browser does not support WebAudio for fallback melody. Please upload an audio file.');
+      const ctx = new AudioCtx();
+      const notes = [392,440,494,523,587,659]; 
+      let i=0;
+      const master = ctx.createGain(); master.gain.value = 0.06; master.connect(ctx.destination);
+      const playNote = (time)=>{
+        const o = ctx.createOscillator(); const gain = ctx.createGain(); o.type='sine'; o.frequency.value = notes[i%notes.length]; gain.gain.setValueAtTime(0,ctx.currentTime);
+        o.connect(gain); gain.connect(master); o.start();
+        gain.gain.linearRampToValueAtTime(1,ctx.currentTime+0.01);
+        gain.gain.linearRampToValueAtTime(0,ctx.currentTime+0.5);
+        o.stop(ctx.currentTime+0.6);
+        i++;
+        if(i<8) setTimeout(()=>playNote(), 300);
+      }
+      playNote();
+    }
+
+    
+    ['play1','play2'].forEach(id=>{document.getElementById(id).addEventListener('keyup', (e)=>{if(e.key==='Enter') e.target.click()})});
+
+    
+    window.addEventListener('beforeunload', (e)=>{
+      const a1 = document.getElementById('audio1'); const a2 = document.getElementById('audio2');
+      if((a1 && !a1.paused) || (a2 && !a2.paused)){
+        e.preventDefault(); e.returnValue='Your audio is still playing — are you sure you want to leave?';
+      }
+    });
+
+    
+  </script>
+</body>
+</html>

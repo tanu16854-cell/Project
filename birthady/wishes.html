@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday — A Wish for You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Pacifico&display=swap" rel="stylesheet">
+  <!-- Libraries for export (PNG & PDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--accent:#ff6b6b;--accent2:#ffd166;--glass:rgba(255,255,255,0.04)}
+    *{box-sizing:border-box}
+    body{margin:0;height:100svh;background:radial-gradient(800px 400px at 10% 10%, rgba(255,107,107,0.06), transparent), linear-gradient(180deg,var(--bg), #071025);display:flex;align-items:center;justify-content:center;font-family:Montserrat,system-ui; color:#fff}
+
+    .card{width:920px;max-width:94%;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr 360px;gap:24px;box-shadow:0 12px 40px rgba(2,6,23,0.6);align-items:center;position:relative}
+
+    .left{padding:10px}
+    h1.title{font-family:Pacifico, cursive;font-size:44px;margin:0 0 6px;color:var(--accent)}
+    p.subtitle{margin:0 0 12px;color:rgba(255,255,255,0.85);font-weight:600}
+    .message{background:var(--glass);padding:18px;border-radius:12px;color:#fff;line-height:1.5;font-size:16px}
+
+    .small-note{margin-top:12px;color:rgba(255,255,255,0.7);font-size:14px}
+
+    .wish-lines{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+    .wish{font-weight:700;font-size:18px;opacity:0;transform:translateY(10px);transition:all 450ms cubic-bezier(.2,.9,.2,1)}
+    .wish.show{opacity:1;transform:translateY(0)}
+
+    .right{display:flex;flex-direction:column;gap:12px;align-items:center;}
+    .photo{width:100%;height:240px;border-radius:12px;background-image:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px;color:#081226;font-weight:800}
+    .btns{display:flex;gap:10px;margin-top:8px}
+    .btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#ff8b8b);color:#081226}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.9)}
+
+    .hearts{position:absolute;inset:0;pointer-events:none}
+    .heart{position:absolute;width:18px;height:18px;background:var(--accent);transform:rotate(-45deg);border-radius:4px;opacity:0.9}
+    .heart:before,.heart:after{content:'';position:absolute;background:var(--accent);width:18px;height:18px;border-radius:50%}
+    .heart:before{top:-9px;left:0}
+    .heart:after{left:9px;top:0}
+
+    .controls-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .input-url{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:8px;border-radius:8px;color:#fff;width:100%}
+
+    @media (max-width:860px){.card{grid-template-columns:1fr;}.photo{height:180px}}
+
+    @media print{
+      .btn, .btns, #playMusicBtn, #editBtn, #toggleCelebration, input[type="range"], #vol, input#loopMusic, label[for="loopMusic"], .hearts, canvas, video, .controls-row { display: none !important; }
+      * { transition: none !important; animation: none !important; }
+      body{background: #ffffff !important; color: #000 !important;}
+      .card{box-shadow:none !important; background:#ffffff !important; border-radius:8px !important; padding:20px !important; width:100% !important; max-width:700px !important;}
+      .photo{background-size:cover !important; background-position:center !important; min-height:220px !important}
+      .wish{opacity:1 !important; transform: none !important}
+      html,body,.card{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .card{page-break-inside: avoid}
+      h1.title{color:#000 !important;}
+      .message, .wish-lines, .wish{color:#000 !important}
+      .small-note, .right > div[style] { display:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main" id="cardToExport">
+    <div class="left">
+      <h1 class="title" id="heroTitle">Happy Birthday, <span id="friendName">Gungun Sharma</span> 🎉</h1>
+      <p class="subtitle">A little page coded just for you — open, read, and smile!</p>
+
+      <div class="message" id="mainMessage">
+        <strong id="senderLine">— From: Your Bestie</strong>
+        <div class="wish-lines" id="wishes"></div>
+        <p class="small-note">Tip: Click the GIF button to toggle confetti & animated hearts. Use the export buttons to download PNG or PDF.</p>
+      </div>
+    </div>
+
+    <aside class="right">
+      <div class="photo" id="photoArea">Put their photo here</div>
+
+      <div class="controls-row">
+        <!-- Melody music autoplay with controls -->
+        <audio id="audioPlayer" autoplay loop preload="auto" controls>
+          <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c83d66179.mp3?filename=soft-piano-melody-14304.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      <div class="btns">
+        <button class="btn btn-primary" id="toggleCelebration">Party On</button>
+        <button class="btn btn-ghost" id="editBtn">Edit Wishes</button>
+      </div>
+
+      <div class="controls-row" style="margin-top:8px">
+        <button class="btn btn-ghost" id="downloadPng">Download PNG</button>
+        <button class="btn btn-ghost" id="downloadPdf">Download PDF</button>
+        <button class="btn btn-ghost" id="shareBtn">Share Link</button>
+      </div>
+
+      <div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:6px;text-align:center">Save this page and send the link — or open it on their phone for a surprise!</div>
+    </aside>
+
+    <div class="hearts" id="heartsContainer" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    const FRIEND = 'Gungun Sharma';
+    const SENDER = '— From: Your Bestie';
+    const WISHES = [
+      'Wishing you happiness,',
+      'May your dreams come true.'
+    ];
+
+    document.getElementById('friendName').textContent = FRIEND;
+    document.getElementById('senderLine').textContent = SENDER;
+
+    const wishesEl = document.getElementById('wishes');
+    WISHES.forEach((w,i)=>{
+      const div = document.createElement('div');
+      div.className = 'wish';
+      div.textContent = w;
+      wishesEl.appendChild(div);
+      setTimeout(()=> div.classList.add('show'), 600 + i*500);
+    });
+
+    const heartsC = document.getElementById('heartsContainer');
+    let heartsActive = false; let heartInterval;
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = Math.random()*16 + 10;
+      h.style.width = size + 'px'; h.style.height = size + 'px';
+      h.style.left = (Math.random()*80 + 8) + '%';
+      h.style.top = (Math.random()*50 + 10) + '%';
+      h.style.opacity = Math.random()*0.9 + 0.3;
+      heartsC.appendChild(h);
+      setTimeout(()=> h.style.transform = 'translateY(-80px) rotate(20deg) scale(1.4)', 40);
+      setTimeout(()=> h.remove(), 2800);
+    }
+
+    function startHearts(){ if(heartInterval) clearInterval(heartInterval); heartInterval = setInterval(spawnHeart, 220); heartsActive=true }
+    function stopHearts(){ clearInterval(heartInterval); heartsActive=false }
+
+    function burstConfetti(){
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed'; canvas.style.inset='0'; canvas.style.pointerEvents='none';
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      function resize(){ canvas.width = innerWidth; canvas.height = innerHeight }
+      resize(); window.addEventListener('resize', resize);
+      const particles = [];
+      const colors = ['#ff6b6b','#ffd166','#6bc4ff','#9b8cff','#7ef29b'];
+      for(let i=0;i<80;i++) particles.push({x:innerWidth/2 + (Math.random()-0.5)*200, y:innerHeight/3 + (Math.random()-0.5)*80, vx:(Math.random()-0.5)*8, vy:(Math.random()*-10)-2, size:Math.random()*10+4, color:colors[Math.floor(Math.random()*colors.length)], life:Math.random()*80+40});
+      function frame(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let i=particles.length-1;i>=0;i--){ const p=particles[i]; p.x+=p.vx; p.y+=p.vy; p.vy+=0.35; p.life--; ctx.fillStyle=p.color; ctx.fillRect(p.x,p.y,p.size,p.size*0.6); if(p.life<=0||p.y>innerHeight+50) particles.splice(i,1);} if(particles.length>0) requestAnimationFrame(frame); else { canvas.remove(); window.removeEventListener('resize', resize); }} frame();
+    }
+
+    document.getElementById('toggleCelebration').addEventListener('click', ()=>{
+      if(!heartsActive){ startHearts(); burstConfetti(); document.getElementById('toggleCelebration').textContent='Stop'; }
+      else { stopHearts(); document.getElementById('toggleCelebration').textContent='Party On'; }
+    });
+
+    document.getElementById('editBtn').addEventListener('click', ()=>{
+      const newName = prompt('Friend\'s name', FRIEND) || FRIEND;
+      const newSender = prompt('Sender line', SENDER) || SENDER;
+      const newWishes = prompt('Enter wishes separated by | (pipe) character', WISHES.join(' | '));
+      if(newName) document.getElementById('friendName').textContent = newName;
+      if(newSender) document.getElementById('senderLine').textContent = newSender;
+      if(newWishes){
+        const arr = newWishes.split('|').map(s=>s.trim()).filter(Boolean);
+        wishesEl.innerHTML = '';
+        arr.forEach((w,i)=>{ const d=document.createElement('div'); d.className='wish'; d.textContent=w; wishesEl.appendChild(d); setTimeout(()=>d.classList.add('show'), 200+i*300); });
+      }
+    });
+
+    document.getElementById('photoArea').addEventListener('click', ()=>{
+      const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+      input.onchange = e=>{ const f = e.target.files[0]; if(!f) return; const url = URL.createObjectURL(f); document.getElementById('photoArea').style.backgroundImage = `url(${url})`; document.getElementById('photoArea').textContent = ''; document.getElementById('photoArea').style.backgroundSize='cover'; };
+      input.click();
+    });
+
+    document.getElementById('shareBtn').addEventListener('click', ()=>{
+      const url = location.href;
+      if(navigator.share){ navigator.share({title:document.title,text:'Open this birthday wish!',url}).catch(()=>{}); }
+      else{ navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(url).then(()=>alert('Link copied to clipboard')) : prompt('Copy this link', url); }
+    });
+
+    async function downloadPNG(){
+      const el = document.getElementById('cardToExport');
+      const hide = document.querySelectorAll('.btn, .controls-row');
+      hide.forEach(n=>n.style.visibility='hidden');
+      try{
+        const canvas = await html2canvas(el, {scale:2, useCORS:true, allowTaint:true});
+        canvas.toBlob(function(blob){
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'birthday-card.png';
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }, 'image/png');
+      }catch(err){ alert('Export failed: '+err.message); }
+      hide.forEach(n=>n.style.visibility='');
+    }
+
+    async function downloadPDF(){
+      const el = document.getElementById('cardToExport');
+      const hide = document.querySelectorAll('.btn, .controls-row');
+      hide.forEach(n=>n.style.visibility='hidden');
+      try{
+        const canvas = await html2canvas(el, {scale:2, useCORS:true, allowTaint:true});
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'landscape' : 'portrait', unit: 'px', format: [canvas.width, canvas.height] });
+        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        pdf.save('birthday-card.pdf');
+      }catch(err){ alert('PDF export failed: '+err.message); }
+      hide.forEach(n=>n.style.visibility='');
+    }
+
+    document.getElementById('downloadPng').addEventListener('click', downloadPNG);
+    document.getElementById('downloadPdf').addEventListener('click', downloadPDF);
+
+    window.addEventListener('load', ()=>{
+      const player = document.getElementById('audioPlayer');
+      player.play().catch(()=>{});
+    });
+  </script>
+</body>
+</html>
