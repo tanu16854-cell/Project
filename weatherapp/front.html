@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <link rel="stylesheet" href="front.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-200 via-indigo-400 to-purple-500 min-h-screen flex flex-col items-center justify-between">
+
+  
+  <header class="w-full py-6 text-center text-white">
+    <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-green-500 to-purple-600">
+      🌤️ Weather App
+    </h1>
+    <button id="darkModeToggle" class="absolute top-5 right-5 p-3 bg-gray-800 text-white rounded-full focus:outline-none">
+      🌙
+    </button>
+    
+   
+  </div>
+</div>
+
+    
+    <p class="text-lg mt-2">Search location and see weather</p>
+  </header>
+
+  <main class="weather-container rounded-2xl p-8 shadow-xl text-white w-full max-w-lg flex-grow">
+    <div class="flex justify-center mb-6">
+      <input id="cityInput" type="text" placeholder="Enter city name..." class="input-box" />
+      <button onclick="getWeather()" class="search-btn">Search</button>
+    
+      
+    </div>
+
+    <div id="weatherCard" class="hidden p-4 rounded-lg backdrop-blur-lg bg-white/30 shadow-lg">
+      <h2 id="location" class="text-xl font-semibold mb-2"></h2>
+      <img id="icon" class="mx-auto w-24 h-24" />
+      <p id="condition" class="text-lg capitalize font-medium mt-2"></p>
+      <p id="temp" class="text-4xl font-bold my-2"></p>
+      <button onclick="toggleTempUnit()" class="toggle-btn">°F</button>
+      <p id="humidity" class="text-sm">💧 Humidity: <span></span></p>
+      <p id="wind" class="text-sm">💨 Wind: <span></span></p>
+      <p id="aqi" class="text-sm">🌫️ AQI: <span></span></p>
+    </div>
+
+    <div id="forecastWrapper" class="mt-8 hidden">
+      <h3 class="text-xl font-semibold mb-4">📅 3-Day Forecast</h3>
+      <div id="forecastSection" class="grid grid-cols-1 sm:grid-cols-3 gap-6"></div>
+    </div>
+  </main>
+
+  <footer class="w-full py-4 bg-gradient-to-r from-purple-500 to-blue-600 text-white text-center">
+    <p>Made by ❤️ [BCA groups]</p>
+    <p>&copy; 2025 Weather App | All rights reserved</p>
+  </footer>
+
+  <script src="front.js"></script>
+</body>
+</html>

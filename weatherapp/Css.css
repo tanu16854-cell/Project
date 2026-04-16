@@ -1,0 +1,124 @@
+body {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 1) 0%, rgba(52, 211, 153, 1) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+header {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.weather-container {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  flex-grow: 1;
+}
+
+.input-box {
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+}
+
+.search-btn {
+  padding: 15px 20px;
+  margin-left: 10px;
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 1);
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background: rgba(22, 163, 74, 1);
+}
+
+
+.toggle-btn {
+  color: #0ea5e9;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.toggle-btn:hover {
+  color: #38bdf8;
+}
+
+#weatherCard {
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+#forecastSection {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.forecast-item {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.forecast-item:hover {
+  transform: scale(1.05);
+}
+
+.forecast-item img {
+  margin: 0 auto;
+}
+
+footer {
+  background: rgba(99, 102, 241, 1);
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+body {
+  transition: background-color 0.3s ease;
+}
+
+body.dark {
+  background: linear-gradient(135deg, rgba(26, 32, 44, 1) 0%, rgba(56, 62, 70, 1) 100%);
+}
+
+.weather-container.dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  color: white;
+}
+.glow {
+  box-shadow: 0 0 20px 8px rgba(255, 223, 0, 0.6);
+  border-radius: 50%;
+}
